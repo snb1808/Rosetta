@@ -27,11 +27,15 @@ class ChatApp extends Component {
         }
         API.postMessage(message)
         event.target.content.value = ''
-        this.setState({ currentChat: this.state.currentChat })
+        this.setState({ messages: [...this.state.messages, message] })
     }
 
     setChat(chat) {
         this.setState({ currentChat: chat })
+    }
+
+    createChat() {
+        API.createChat()
     }
 
     render() {
@@ -40,6 +44,7 @@ class ChatApp extends Component {
                 <button onClick={this.props.handleLogOut}>Log Out</button>
                 <img src={this.props.currentUser.profile_picture} alt='' />
                 <div className='all_chats_container'>
+                    <button onClick={this.createChat}>Start New Chat</button>
                     <ChatDisplay chats={this.state.allChats} setChat={() => this.setChat} />
                 </div>
                 <div className='chat_container'>
