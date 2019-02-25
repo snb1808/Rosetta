@@ -73,13 +73,13 @@ class App extends Component {
     } else {
     return (
       <div>
-        <h1>Rosetta</h1>
+        <h1 className='title'>Rosetta</h1>
         Log In:
         <form className='loginForm' onSubmit={this.handleLogin}>
           <div>
             <input type="text" name='email' placeholder='Email'/>
             <input type="password" name='password' placeholder='Password'/>
-            <input type='submit' value='Log In'/>
+            <input className='button' type='submit' value='Log In'/>
           </div>
         </form>
         Or Create a New User:
@@ -89,11 +89,11 @@ class App extends Component {
             <input type="text" name='lastName' placeholder='Last Name' />
             <input type="text" name='email' placeholder='Email' />
             <input type="text" name='profilePicture' placeholder='Profile Picture URL' />
-            <select name='language'>
+            <select className='button drop_down' name='language'>
               {this.state.allLanguages.map(language => <option key={language.id} value={language.id}> {language.name} - {language.code} </option>)}
             </select>
             <input type="password" name='password' placeholder='Password'/>
-            <input type='submit' value='Sign Up'/>
+            <input className='button' type='submit' value='Sign Up'/>
           </div>
         </form>
       </div>

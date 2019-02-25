@@ -6,4 +6,8 @@ class User < ApplicationRecord
     has_many :userchats
     has_many :chats, through: :userchats
     has_many :messages
+
+    def contact_list
+        User.all - [self] - self.chats.map(&:users).flatten
+    end
 end

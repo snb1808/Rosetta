@@ -1,33 +1,106 @@
-.App {
+@import url('https://fonts.googleapis.com/css?family=Baloo');
+
+body {
+  text-align: center;
+  background-color:  #f4c88d;
+  font-family: 'Baloo', cursive;
+}
+
+.title {
+  font-size: 80px;
+  margin: 5px;
+}
+
+.loginForm {
+  max-width: 30px;
+  align-content: center;
+  display: inline;
+}
+
+.drop_down {
+  width: 200px;
+  font-size: 10px;
+  height: 42px;
+}
+
+.profile_picture {
+  margin: 5vh;
+  top: 50%;
+  left: 50%;
+  height: 50px;
+  background-color: #d1d1e0;
+  border-radius: 50%;
+  border: 1px #333;
+  box-shadow: 0 6px 12px 2px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: .2s;
+  float: left;
+}
+
+.user_name {
+  float: left;
+  margin-top: 6.5vh;
+}
+
+button {
+  cursor: pointer;
+  background-color: #f4a742;
+  font-family: 'Baloo', cursive;
+  font-size: 20px;
+  margin: 20px;
+  border-radius: 15px;
+}
+
+.button {
+  cursor: pointer;
+  background-color: #f4a742;
+  font-family: 'Baloo', cursive;
+  font-size: 20px;
+  margin: 20px;
+  border-radius: 15px;
+}
+
+.logout {
+  float: right;
+}
+
+.title {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.chat_container {
+  width: 65vw;
+  float: right;
+  background-color: #fff;
+  margin-right: 5vw;
+  border-radius: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.chat_bar {
+  width: 20vw;
+  cursor: pointer;
+  background-color: #f4a742;
+  text-align: center;
+  font-size: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.message {
+  margin: 5px;
+  list-style: none;
+  max-width: 30vw;
+  border-radius: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sender_message {
+  align-self: right;
+  background-color: #f4a742;
+}
+
+.receiver_message {
+  align-self: left;
+  background-color: #f4c88d;
+}
+
+.left_column {
+  margin-left: 20px;
 }

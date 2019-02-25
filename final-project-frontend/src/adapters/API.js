@@ -5,9 +5,11 @@ class API {
         this.usersURL = this.baseURL + '/users'
         this.languagesURL = this.baseURL + '/languages'
         this.chatsURL = this.baseURL + '/chats'
+        this.userChatsURL = this.baseURL + '/userchats'
         this.messagesURL = this.baseURL + '/messages'
         this.loginURL = this.baseURL + '/login'
         this.profileURL = this.baseURL + '/profile'
+        this.contactURL = this.baseURL + '/contact_list'
     }
 
     static login (user) {
@@ -20,6 +22,10 @@ class API {
 
     static getCurrentUser () {
         return this.get(this.profileURL)
+    }
+
+    static getContactList () {
+        return this.get(this.contactURL)
     }
 
     static getUser (id) {
@@ -36,6 +42,10 @@ class API {
 
     static getChat (id) {
         return this.get(this.chatsURL + `/${id}`)
+    }
+
+    static createChat (myId, targetId) {
+        return this.post(this.chatsURL, { myId: myId, targetId: targetId })
     }
 
     static getMessages () {

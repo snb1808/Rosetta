@@ -6,7 +6,7 @@ const MessageInput = props => {
         <div>
             <form onSubmit={props.handleSubmit}>
                 <input type='text' name='content'/>
-                <input type='submit' value='Post Message' />
+                <input className='button' type='submit' value='Post Message' />
             </form>
         </div>
     )

@@ -26,6 +26,12 @@ class Api::V1::UsersController < Api::V1::ApplicationController
       render json: { error: 'Failed to create user' }, status: :not_acceptable
     end
   end
+
+  def contact_list
+    @user = current_user
+    # byebug
+    render json: { users: @user.contact_list }, status: :accepted
+  end
  
   private
  

@@ -8,20 +8,16 @@ class Api::V1::ChatsController < Api::V1::ApplicationController
     end
 
     def create
-        @chat = Chat.new(chat_params)
+        @chat = Chat.new
         @chat.save!
+        Userchat.create(user_id: params[:myId], chat_id: @chat.id)
+        Userchat.create(user_id: params[:targetId], chat_id: @chat.id)
         render json: @chat
     end
 
     def show 
         @chat = Chat.find(params[:id])
         render json: @chat
-    end
-
-    private
-
-    def chat_params
-        params.require(:chat).permit(:id)
     end
 
 end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
       get '/users', to: 'users#index'
+      get '/contact_list', to: 'users#contact_list'
       resources :userchats
       resources :chats
       resources :messages, only: [:index, :create]

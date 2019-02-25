@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import API from '../adapters/API'
 
 class Messages extends Component {
 
     render() {
+        const messagesToRender = this.props.messages.filter(message => message.chat_id === this.props.currentChat.id)
+
         return (
             <ul>
-                {this.props.messages.map(message => 
-                <li key={message.id}>
-                {message.user_id === this.props.currentUser.id 
+                {messagesToRender.map(message => 
+                message.user_id === this.props.currentUser.id 
                 ?
-                message.original_content
+                <li className='sender_message message' key={message.id}>
+                {message.original_content}
+                </li>
                 :
-                message.translated_content
-                }
+                <li className='receiver_message message' key={message.id}>
+                {message.translated_content}
                 </li>
                 )}
             </ul>

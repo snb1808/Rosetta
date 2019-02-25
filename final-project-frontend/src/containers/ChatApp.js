@@ -3,19 +3,23 @@ import Messages from '../components/Messages';
 import MessageInput from '../components/MessageInput';
 import API from '../adapters/API';
 import ChatDisplay from '../containers/ChatDisplay'
+import StartNewChat from '../containers/StartNewChat'
 
 class ChatApp extends Component {
 
     state = {
         currentChat: {}, 
         messages: [],
-        allChats: []
+        allChats: [],
+        newChat: false,
+        userFlag: ''
     }
 
-    componentDidMount() {
-        API.getChat(1).then(data =>  {this.setState({ currentChat: data })})
-        API.getMessages().then(data => this.setState({ messages: data }))
-        API.getChats().then(data => this.setState({ allChats: data }))
+    async componentDidMount() {
+        await API.getMessages().then(data => this.setState({ messages: data }))
+        await API.getChats().then(data => this.setState({ allChats: data }))
+        await API.getLanguages().then(data => console.log(data))
+            // this.setState({ userFlag: data.filter(lang => lang.id === this.props.currentUser.language_id).flag}))
     }
 
     handleSubmit = event => {
@@ -30,26 +34,40 @@ class ChatApp extends Component {
         this.setState({ messages: [...this.state.messages, message] })
     }
 
-    setChat(chat) {
+    setChat = (chat) => {
         this.setState({ currentChat: chat })
+        API.getChats().then(data => this.setState({ allChats: data }))
     }
 
-    createChat() {
-        API.createChat()
+    setNewChat = () => {
+        this.setState({ newChat: !this.state.newChat })
+    }
+
+    getFlag() {
+        
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.props.handleLogOut}>Log Out</button>
-                <img src={this.props.currentUser.profile_picture} alt='' />
-                <div className='all_chats_container'>
-                    <button onClick={this.createChat}>Start New Chat</button>
-                    <ChatDisplay chats={this.state.allChats} setChat={() => this.setChat} />
+                <button className='logout' onClick={this.props.handleLogOut}>Log Out</button>
+                <img className='profile_picture' src={this.props.currentUser.profile_picture} alt='' />
+                <p className='user_name'>{this.props.currentUser.first_name} {this.state.userFlag}</p>
+                <h1 className='title'>Rosetta Chat</h1>
+                {this.state.newChat
+                ?
+                <div className='left_column '>
+                    <i className="fas fa-arrow-left button" onClick={this.setNewChat}></i> New Chat
+                    <StartNewChat currentUser={this.props.currentUser} setChat={this.setChat} />
                 </div>
+                :
+                <div className='all_chats_container left_column'>
+                    <button onClick={this.setNewChat}>Start New Chat</button>
+                    <ChatDisplay chats={this.state.allChats} setChat={this.setChat} />
+                </div>
+                }
                 <div className='chat_container'>
-                    <h3>Rosetta Chat</h3>
-                    <Messages chat={this.state.currentChat} messages={this.state.messages} currentUser={this.props.currentUser} />
+                    {this.state.messages && <Messages currentChat={this.state.currentChat} messages={this.state.messages} currentUser={this.props.currentUser} /> }
                     <MessageInput handleSubmit={this.handleSubmit} />
                 </div>
             </div>
