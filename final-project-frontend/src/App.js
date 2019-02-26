@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-// import logo from './logo.svg';
+import React, { Component } from 'react'; 
 import './App.css';
 import ChatApp from './containers/ChatApp'
 import API from './adapters/API'
+import { withRouter, Route } from 'react-router-dom';
+import LoginPage from './components/LoginPage'
+import SignUpPage from './components/SignUpPage'
+import Profile from './containers/Profile'
 
 class App extends Component {
  
@@ -13,12 +16,15 @@ class App extends Component {
 
   componentDidMount() {
     if (localStorage.token) {
-        API.getCurrentUser().then(data => {
-          this.setState({ currentUser: data.user })
-        })
-      }
+      API.getCurrentUser().then(data => {
+        this.setState({ currentUser: data.user })
+      })
       API.getLanguages().then(data => this.setState({ allLanguages: data }))
+      this.props.history.push('/home')
+    } else {
+      this.props.history.push('/login')
     }
+  }
 
   handleLogin = event => {
     event.preventDefault()
@@ -66,43 +72,19 @@ class App extends Component {
   }
 
   render() {
-    if (localStorage.token) {
-      return (
-        <ChatApp currentUser={this.state.currentUser} handleLogOut={this.handleLogOut} />
-      )
-    } else {
     return (
       <div>
         <h1 className='title'>Rosetta</h1>
-        Log In:
-        <form className='loginForm' onSubmit={this.handleLogin}>
-          <div>
-            <input type="text" name='email' placeholder='Email'/>
-            <input type="password" name='password' placeholder='Password'/>
-            <input className='button' type='submit' value='Log In'/>
-          </div>
-        </form>
-        Or Create a New User:
-        <form className='signUpForm' onSubmit={this.handleSignUp}>
-          <div>
-            <input type="text" name='firstName' placeholder='First Name' />
-            <input type="text" name='lastName' placeholder='Last Name' />
-            <input type="text" name='email' placeholder='Email' />
-            <input type="text" name='profilePicture' placeholder='Profile Picture URL' />
-            <select className='button drop_down' name='language'>
-              {this.state.allLanguages.map(language => <option key={language.id} value={language.id}> {language.name} - {language.code} </option>)}
-            </select>
-            <input type="password" name='password' placeholder='Password'/>
-            <input className='button' type='submit' value='Sign Up'/>
-          </div>
-        </form>
+        <Route path='/login' component={() => <LoginPage handleLogin={this.handleLogin} />} />
+        <Route path='/signup' component={() => <SignUpPage handleSignUp={this.handleSignUp} allLanguages={this.state.allLanguages} />} />
+        <Route path='/home' component={() => <ChatApp currentUser={this.state.currentUser} handleLogOut={this.handleLogOut} allLanguages={this.state.allLanguages} />} />
+        <Route path='/profile' component={() => <Profile currentUser={this.state.currentUser} allLanguages={this.state.allLanguages} history={this.props.history} />} />
+
       </div>
 
     )
   }
-  }
-
 
 }
 
-export default App;
+export default withRouter(App);

@@ -1,7 +1,7 @@
 class API {
 
     static init () {
-        this.baseURL = "http://localhost:3001/api/v1"
+        this.baseURL = "http://10.218.3.76:3001/api/v1"
         this.usersURL = this.baseURL + '/users'
         this.languagesURL = this.baseURL + '/languages'
         this.chatsURL = this.baseURL + '/chats'
@@ -56,6 +56,10 @@ class API {
         return this.post(this.messagesURL, message)
     }
 
+    static patchUser (id, data) {
+        return this.patch(this.usersURL + `/${id}`, data)
+    }
+
     static async get (url) {
         return await fetch(url, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -72,6 +76,18 @@ class API {
             },
             body: JSON.stringify(data)
         }).then(data => data.json())
+    }
+
+    static patch (url, data) {
+        return fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${localStorage.token}`
+            },
+            body: JSON.stringify(data)
+            }).then(data => data.json())
     }
 
 }

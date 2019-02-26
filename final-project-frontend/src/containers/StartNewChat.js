@@ -23,6 +23,7 @@ class NewChat extends Component {
                 contactList: data.users
             })
         })
+        this.props.closeNewChat()
     }
 
     render() {

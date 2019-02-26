@@ -42,6 +42,12 @@ body {
   margin-top: 6.5vh;
 }
 
+.flag {
+  position: relative;
+  font-size: 30px;
+  margin-right: 15px;
+}
+
 button {
   cursor: pointer;
   background-color: #f4a742;
@@ -60,6 +66,10 @@ button {
   border-radius: 15px;
 }
 
+.fas {
+  cursor: pointer;
+}
+
 .logout {
   float: right;
 }
@@ -74,6 +84,8 @@ button {
   background-color: #fff;
   margin-right: 5vw;
   border-radius: 10px;
+  overflow: scroll;
+  height: 40vh;
 }
 
 .chat_bar {
@@ -84,23 +96,54 @@ button {
   font-size: 15px;
 }
 
+.message_list {
+  padding: 0;
+}
+
 .message {
   margin: 5px;
-  list-style: none;
   max-width: 30vw;
   border-radius: 10px;
+  padding: 3px 6px;
 }
 
 .sender_message {
   align-self: right;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sender_message .message {
   background-color: #f4a742;
 }
 
-.receiver_message {
-  align-self: left;
+.receiver_message .message {
   background-color: #f4c88d;
+}
+
+.receiver_message {
+  list-style: none;
+  align-self: left;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .left_column {
   margin-left: 20px;
+  display: flex;
+}
+
+.message_input {
+  position: fixed;
+  padding: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 130px;
+}
+
+.full_profile_picture {
+  height: 20vh;
+  border-radius: 10px;
 }

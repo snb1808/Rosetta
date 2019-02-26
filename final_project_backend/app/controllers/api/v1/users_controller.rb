@@ -27,6 +27,12 @@ class Api::V1::UsersController < Api::V1::ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
+    render json: @user
+  end
+
   def contact_list
     @user = current_user
     # byebug
