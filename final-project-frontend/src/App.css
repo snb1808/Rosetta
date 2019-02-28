@@ -62,6 +62,7 @@ a {
 .chat_app_container {
   display: flex;
   justify-content: space-between;
+  height: 78.5%;
 }
 
 .header {
@@ -178,6 +179,7 @@ button:hover {
 .chat_app {
   display: flex;
   width: 100%;
+  height: 100%;
 }
 
 .new_chat_btn {
@@ -211,11 +213,12 @@ button:hover {
 }
 
 .chat_bar {
+  display: inline-flex;
   opacity: 0.8;
   width: 100%;
   cursor: pointer;
   background-color: #a466d8;
-  text-align: center;
+  align-content: center;
   font-size: 15px;
   height: 5vh;
   vertical-align: middle;
@@ -229,6 +232,25 @@ button:hover {
 
 .chat_bar:hover {
   background-color: #fff;
+}
+
+.chat_bar_photo_holder {
+  height: 30px;
+  position: relative;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  overflow: hidden;
+  margin-top: 5px;
+  align-items: center;
+}
+
+.chat_bar_photo {
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .message_list {
@@ -266,12 +288,12 @@ button:hover {
 
 .all_chats_container {
   opacity: 0.9;
+  height: 100%;
 }
 
 .left_column {
-  /* margin-left: 20px; */
   display: flex;
-  height: 67vh;
+  height: 100%;
   flex-direction: column;
   align-items: flex-start;
   overflow: scroll;
@@ -298,7 +320,6 @@ button:hover {
 .message_input input {
   width: 20vw;
   height: 30px;
-  /* margin-bottom: 3vh; */
 }
 
 .full_profile_picture {
