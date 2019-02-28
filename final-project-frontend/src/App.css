@@ -164,7 +164,7 @@ button:hover {
   background-color: #fff;
 }
 
-.fas {
+.fa-arrow-left {
   cursor: pointer;
 }
 
@@ -183,7 +183,7 @@ button:hover {
 }
 
 .new_chat_btn {
-  height: 35px;
+  /* height: 35px; */
   padding: auto 20px;
   align-self: center;
 }
@@ -262,6 +262,7 @@ button:hover {
   max-width: 30vw;
   border-radius: 10px;
   padding: 3px 6px;
+  box-shadow: 3px 3px 2px grey;
 }
 
 .sender_message {
@@ -346,6 +347,7 @@ button:hover {
 
 .settings_column {
   width: 50%;
+  padding-top: 20px;
 }
 
 h1 {
