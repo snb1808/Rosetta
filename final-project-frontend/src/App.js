@@ -15,11 +15,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    API.getLanguages().then(data => this.setState({ allLanguages: data }))
     if (localStorage.token) {
       API.getCurrentUser().then(data => {
         this.setState({ currentUser: data.user })
       })
-      API.getLanguages().then(data => this.setState({ allLanguages: data }))
       this.props.history.push('/home')
     } else {
       this.props.history.push('/login')
@@ -41,6 +41,7 @@ class App extends Component {
   login = data => {
     localStorage.setItem('token', data.jwt)
     this.setState({ currentUser: data.user })
+    this.props.history.push('/home')
   }
 
   handleSignUp = event => {
@@ -59,6 +60,7 @@ class App extends Component {
     event.target.email.value = ''
     event.target.profilePicture.value = ''
     event.target.password.value = ''
+    this.props.history.push('/home')
   }
 
   createUser = newUser => {
@@ -69,16 +71,22 @@ class App extends Component {
   handleLogOut = () => {
     localStorage.removeItem('token')
     this.setState({ currentUser: {} })
+    this.props.history.push('/login')
+  }
+
+  updateCurrentUser = () => {
+    API.getCurrentUser().then(data => {
+      this.setState({ currentUser: data.user })
+    })
   }
 
   render() {
     return (
       <div>
-        <h1 className='title'>Rosetta</h1>
         <Route path='/login' component={() => <LoginPage handleLogin={this.handleLogin} />} />
         <Route path='/signup' component={() => <SignUpPage handleSignUp={this.handleSignUp} allLanguages={this.state.allLanguages} />} />
         <Route path='/home' component={() => <ChatApp currentUser={this.state.currentUser} handleLogOut={this.handleLogOut} allLanguages={this.state.allLanguages} />} />
-        <Route path='/profile' component={() => <Profile currentUser={this.state.currentUser} allLanguages={this.state.allLanguages} history={this.props.history} />} />
+        <Route path='/profile' component={() => <Profile updateCurrentUser={this.updateCurrentUser} currentUser={this.state.currentUser} allLanguages={this.state.allLanguages} history={this.props.history} />} />
 
       </div>
 

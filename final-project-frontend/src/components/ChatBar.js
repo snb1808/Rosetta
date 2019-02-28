@@ -13,7 +13,7 @@ class ChatBar extends Component {
 
     render() {
         return (
-            <div className='button chat_bar' onClick={() => this.props.setChat(this.props.chat)}>{this.state.recipient.first_name} {this.state.recipient.last_name}</div>
+            <div className='chat_bar' onClick={() => this.props.setChat(this.props.chat)}>{this.state.recipient.first_name} {this.state.recipient.last_name}</div>
         )
     }
 

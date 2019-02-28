@@ -28,8 +28,8 @@ class NewChat extends Component {
 
     render() {
         return (
-            <div>
-                {this.state.contactList.map(user => <div className='button' onClick={() => this.createChat(user)} key={user.id}>{user.first_name} {user.last_name}</div>)}
+            <div className='chat_bar_container'>
+                {this.state.contactList.map(user => <div className='chat_bar' onClick={() => this.createChat(user)} key={user.id}>{user.first_name} {user.last_name}</div>)}
             </div>
         )
     }

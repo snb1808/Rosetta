@@ -6,6 +6,7 @@ class Messages extends Component {
         this.interval = setInterval(async () => {
             this.props.renderMessages()
         }, 1000)
+        // this.props.scrollToBottom()
     }
 
     componentWillUnmount() {
@@ -15,7 +16,8 @@ class Messages extends Component {
         render() {
             return (
                 <div>
-                    <h2> {this.props.recipient.first_name} {this.props.flag} </h2>
+                    <div className='chat_header'> <div className='profile_pic_container'><img className='profile_picture' onClick={this.props.toggleRecipientProfile} src={this.props.recipient.profile_picture} alt='' /></div>{this.props.recipient.first_name} {this.props.flag} </div>
+                    <div className='message_container'>
                     <ul className='message_list'>
                         {this.props.messages.filter(message => message.chat_id === this.props.currentChat.id).map(message => 
                         message.user_id === this.props.currentUser.id 
@@ -29,6 +31,7 @@ class Messages extends Component {
                         </li>
                         )}
                     </ul>
+                    </div>
                 </div>
             )
                     }

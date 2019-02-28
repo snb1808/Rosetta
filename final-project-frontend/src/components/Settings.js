@@ -19,6 +19,7 @@ class Settings extends Component {
         event.preventDefault()
         const picture = { profile_picture: event.target.url.value }
         API.patchUser(this.props.currentUser.id, picture)
+        this.props.updateCurrentUser()
         this.setState({ profilePicture: event.target.url.value })
     }
 
@@ -26,8 +27,9 @@ class Settings extends Component {
         event.preventDefault()
         const language = { language_id: event.target.language.value }
         API.patchUser(this.props.currentUser.id, language)
-        // this.props.history.push('/home')
-        window.location.reload();
+        this.props.updateCurrentUser()
+        this.props.history.push('/home')
+        this.setState({ editLanguage: false })
     }
 
     togglePictureForm = () => this.setState({ editPicture: !this.state.editPicture })

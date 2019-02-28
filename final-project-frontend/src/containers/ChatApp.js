@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Messages from '../components/Messages';
-import MessageInput from '../components/MessageInput';
+import Chat from './Chat';
 import API from '../adapters/API';
-import ChatDisplay from '../containers/ChatDisplay'
-import StartNewChat from '../containers/StartNewChat'
+import ChatDisplay from '../containers/ChatDisplay';
+import StartNewChat from '../containers/StartNewChat';
 import { Link } from 'react-router-dom';
 
 class ChatApp extends Component {
@@ -15,19 +14,30 @@ class ChatApp extends Component {
         allChats: [],
         newChat: false,
         userFlag: '',
-        recipientFlag: ''
+        recipientFlag: '',
+        showRecipientProfile: false
     }
 
     async componentDidMount() {
-        console.log('hello', this.props.currentUser.language_id)
         this.renderMessages()
         await API.getChats().then(data => this.setState({ allChats: data }))
         await API.getLanguages().then(data => this.setState({ userFlag: data.filter(lang => lang.id === this.props.currentUser.language_id)[0].flag}))
+        // this.scrollToBottom()
     }
 
     renderMessages = () => {
         API.getMessages().then(data => this.setState({ messages: data }))
     }
+
+    // scrollToBottom = () => {
+    //     this.messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+    //   }
+      
+    //   componentDidUpdate() {
+    //     this.scrollToBottom()
+    //   }
+
+    //   messagesEnd = React.createRef()
 
     handleSubmit = event => {
         event.preventDefault()
@@ -42,7 +52,10 @@ class ChatApp extends Component {
     }
 
     setChat = (chat) => {
-        this.setState({ currentChat: chat })
+        this.setState({ 
+            currentChat: chat,
+            showRecipientProfile: false
+         })
         API.getChats().then(data => this.setState({ allChats: data }))
         API.getUser(chat.recipient).then(user => {
             this.setState({ recipient: user })
@@ -50,18 +63,28 @@ class ChatApp extends Component {
         })
     }
 
-    setNewChat = () => {
-        this.setState({ newChat: !this.state.newChat })
-    }
+    setNewChat = () => { this.setState({ newChat: !this.state.newChat }) }
+
+    toggleProfile = () => { this.setState({ showRecipientProfile: !this.state.showRecipientProfile })}
 
     render() {
         return (
-            <div>
-                <button className='logout' onClick={this.props.handleLogOut}>Log Out</button>
-                <Link to='/profile'>
-                    <img className='profile_picture' src={this.props.currentUser.profile_picture} alt='' />
-                    <p className='user_name'> <span className='flag'>{this.state.userFlag}</span><span>{this.props.currentUser.first_name}</span></p>
-                </Link>
+            <div className='home'>
+                <div className='header'>
+                    <Link to='/profile'>
+                    <div className='profile_div'>
+                        <div className='profile_pic_container'>
+                            <img className='profile_picture' src={this.props.currentUser.profile_picture} alt='' />
+                        </div>
+                        <p className='user_name'> <span className='flag'>{this.state.userFlag}</span><span>{this.props.currentUser.first_name}</span></p>
+                    </div>
+                    </Link> 
+                    <p className='title'>Rosetta</p>   
+                <div>
+                     <button className='logout' onClick={this.props.handleLogOut}>Log Out</button>
+                </div>
+                </div>   
+                <div className='chat_app_container'>   
                 {this.state.newChat
                 ?
                 <div className='left_column '>
@@ -69,19 +92,17 @@ class ChatApp extends Component {
                     <StartNewChat currentUser={this.props.currentUser} setChat={this.setChat} closeNewChat={this.setNewChat} />
                 </div>
                 :
-                <div>
+                <div className='chat_app'>
                     <div className='all_chats_container left_column'>
-                        <button onClick={this.setNewChat}>Start New Chat</button>
+                        <button className='new_chat_btn' onClick={this.setNewChat}>Start New Chat</button>
                         <ChatDisplay chats={this.state.allChats} setChat={this.setChat} />
                     </div>
-                    <div className='chat_container'>
-                        {this.state.currentChat && <Messages flag={this.state.recipientFlag} renderMessages={this.renderMessages} currentChat={this.state.currentChat} messages={this.state.messages} currentUser={this.props.currentUser} recipient={this.state.recipient}/> }
-                        <MessageInput handleSubmit={this.handleSubmit} />
+                        <Chat toggleProfile={this.toggleProfile} showProfile={this.state.showRecipientProfile} currentChat={this.state.currentChat} handleSubmit={this.handleSubmit} recipientFlag={this.state.recipientFlag} renderMessages={this.renderMessages} messages={this.state.messages} currentUser={this.props.currentUser} recipient={this.state.recipient}/>
                     </div>
-                </div>
                 }
-                
-            </div>
+                </div>   
+                </div>
+
       )
     }
 

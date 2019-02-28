@@ -1,7 +1,7 @@
 class API {
 
     static init () {
-        this.baseURL = "http://10.218.3.76:3001/api/v1"
+        this.baseURL = "http://10.218.5.216:3001/api/v1"
         this.usersURL = this.baseURL + '/users'
         this.languagesURL = this.baseURL + '/languages'
         this.chatsURL = this.baseURL + '/chats'
