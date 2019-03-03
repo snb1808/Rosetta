@@ -10,7 +10,7 @@ class Chat extends Component {
             return (
                 <div className={`${this.props.currentChat ? 'chat_container' : 'chat_container hidden'}`}>
                     {this.props.currentChat &&
-                    <Messages toggleRecipientProfile={this.props.toggleProfile} scrollToBottom={this.scrollToBottom} flag={this.props.recipientFlag} renderMessages={this.props.renderMessages} currentChat={this.props.currentChat} messages={this.props.messages} currentUser={this.props.currentUser} recipient={this.props.recipient}/> }
+                    <Messages isGroupChat={this.props.isGroupChat} toggleRecipientProfile={this.props.toggleProfile} scrollToBottom={this.scrollToBottom} flag={this.props.recipientFlag} renderMessages={this.props.renderMessages} currentChat={this.props.currentChat} messages={this.props.messages} currentUser={this.props.currentUser} recipient={this.props.recipient}/> }
                     {/* <div className='scroll_bottom' style={{ float:"left", clear: "both" }} ref={this.messagesEnd} /> */}
                     <MessageInput handleSubmit={this.props.handleSubmit} />
                 </div>

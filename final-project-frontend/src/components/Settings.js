@@ -7,10 +7,11 @@ import EditPersonal from '../components/EditPersonal'
 class Settings extends Component {
 
     state = {
-        editPicture: false,
-        editLanguage: false,
+        // editPicture: false,
+        // editLanguage: false,
         profilePicture: '',
-        editPersonal: false
+        // editPersonal: false,
+        editForm: ''
     }
 
     async componentDidMount() {
@@ -53,36 +54,38 @@ class Settings extends Component {
         this.setState({ editPersonal: false })
     }
 
-    togglePictureForm = () => this.setState({ editPicture: !this.state.editPicture, editLanguage: false, editPersonal: false})
+    togglePictureForm = () => this.state.editForm === 'picture' ? this.setState({ editForm: ''}) : this.setState({ editForm: 'picture' }) 
+        // editPicture: !this.state.editPicture, editLanguage: false, editPersonal: false})
 
-    toggleLanguageSelect = () => this.setState({ editLanguage: !this.state.editLanguage, editPicture: false, editPersonal: false })
+    toggleLanguageSelect = () => this.state.editForm === 'language' ? this.setState({ editForm: ''}) : this.setState({ editForm: 'language' }) 
 
-    toggleEditPersonal = () => this.setState({ editPersonal: !this.state.editPersonal, editLanguage: false, editPicture: false })
+    toggleEditPersonal = () => this.state.editForm === 'personal' ? this.setState({ editForm: ''}) : this.setState({ editForm: 'personal' }) 
+
+    renderEditForm = () => {
+        switch (this.state.editForm) {
+            case 'picture':
+                return <EditPictureForm handleEditPicture={this.handleEditPicture} />
+            case 'language':
+                return <EditLanguageSelect handleEditLanguage={this.handleEditLanguage} allLanguages={this.props.allLanguages} />
+            case 'personal':
+                return <EditPersonal handleEditPersonal={this.handleEditPersonal} currentUser={this.props.currentUser} />
+            default: return null
+        }
+    }
 
     render() {
         return (
             <div className='edit_content'>     
                 <button onClick={this.togglePictureForm}>Change Profile Picture</button>
-                    {this.state.editPicture
-                    ?
-                    <EditPictureForm handleEditPicture={this.handleEditPicture} />
-                    :
-                    null
-                    }
+                  
                 <button onClick={this.toggleLanguageSelect}>Edit Language</button>
-                    {this.state.editLanguage
-                    ?
-                    <EditLanguageSelect handleEditLanguage={this.handleEditLanguage} allLanguages={this.props.allLanguages} />
-                    :
-                    null
-                    }
+                  
                 <button onClick={this.toggleEditPersonal}>Edit Personal Details</button>
-                    {this.state.editPersonal
-                    ?
-                <EditPersonal handleEditPersonal={this.handleEditPersonal} currentUser={this.props.currentUser} />
-                    :
-                    null
-                    }
+                
+                <div>
+                    {this.renderEditForm()}
+                </div>
+
             </div>
         )
     }

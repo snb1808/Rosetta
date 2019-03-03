@@ -9,12 +9,15 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
 
     def create
         @chat = Chat.find(params[:chat_id])
-        @user = @chat.other_user(params[:user_id])
+        @message = Message.new(original_content: params[:original_content], user_id: current_user.id, chat_id: params[:chat_id])
+        @message.save!
+        @users = @chat.other_users(current_user.id)
         gcloud = Google::Cloud.new 
         translate = gcloud.translate ENV['APIKEY']
-        translation = translate.translate params[:original_content], to: @user.language.code
-        @message = Message.new(original_content: params[:original_content], user_id: params[:user_id], chat_id: params[:chat_id], translated_content: translation.text)
-        @message.save!
+        @users.each do |user| 
+            translation = translate.translate params[:original_content], to: user.language.code
+            Translation.create(user_id: user.id, content: translation.text, message_id: @message.id)
+        end
         render json: @message
     end
 

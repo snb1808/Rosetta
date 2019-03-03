@@ -10,8 +10,8 @@ class Api::V1::ChatsController < Api::V1::ApplicationController
     def create
         @chat = Chat.new
         @chat.save!
-        Userchat.create(user_id: params[:myId], chat_id: @chat.id)
-        Userchat.create(user_id: params[:targetId], chat_id: @chat.id)
+        Userchat.create(user_id: current_user.id, chat_id: @chat.id)
+        params[:ids].each { |id| Userchat.create(user_id: id, chat_id: @chat.id) }
         render json: @chat
     end
 

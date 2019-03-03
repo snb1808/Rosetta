@@ -16,7 +16,7 @@ class NewChat extends Component {
     } 
 
     createChat(user) {
-        API.createChat(this.props.currentUser.id, user.id)
+        API.createChat([user.id])
         .then(data => this.props.setChat(data))
         API.getContactList().then(data => {
             this.setState({ 

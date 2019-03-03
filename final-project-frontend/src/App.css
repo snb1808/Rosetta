@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Baloo');
+* {
+  box-sizing: border-box;
+}
 
 body {
   text-align: center;
@@ -51,7 +54,7 @@ a {
   width: 90vw;
   background-color: #fff;
   position: relative;
-  border-radius: 2px;
+  border-radius: 4px;
   margin: auto;
   margin-top: 9vh;
   opacity: 0.9;
@@ -137,13 +140,13 @@ a {
 }
 
 button {
+  display: block;
   border-color: #000;
   border: 2px;
   cursor: pointer;
   background-color: #a466d8;
   font-family: 'Baloo', cursive;
   font-size: 20px;
-  margin: 20px;
   border-radius: 15px;
 }
 
@@ -183,9 +186,7 @@ button:hover {
 }
 
 .new_chat_btn {
-  /* height: 35px; */
-  padding: auto 20px;
-  align-self: center;
+  display: block;
 }
 
 .chat_container {
@@ -210,20 +211,24 @@ button:hover {
 
 .chat_bar_container {
   width: 100%;
+  height: calc(100% - 60px);
+  overflow: scroll;
 }
 
 .chat_bar {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0.8;
   width: 100%;
   cursor: pointer;
   background-color: #a466d8;
-  align-content: center;
   font-size: 15px;
   height: 5vh;
-  vertical-align: middle;
-  line-height: 5vh;
   font-family: 'baloo', cursive;
+  border: 1px solid transparent;
+  padding: 0 50px;
+  position: relative;
 }
 
 .chat_bar:nth-child(odd) {
@@ -234,20 +239,34 @@ button:hover {
   background-color: #fff;
 }
 
+div.chat_bar.selected {
+  background-color: #ec6cec;
+  border: 1px solid white;
+}
+
+.chat_bar_username {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
 .chat_bar_photo_holder {
+  top: 50%;
+  left: 20px;
+  transform: translate(0, -50%);
   height: 30px;
-  position: relative;
+  position: absolute;
   width: 30px;
   border-radius: 50%;
   display: flex;
   overflow: hidden;
-  margin-top: 5px;
   align-items: center;
 }
 
 .chat_bar_photo {
   height: 100%;
   position: absolute;
+  /* width: 30px; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -294,10 +313,8 @@ button:hover {
 
 .left_column {
   display: flex;
-  height: 100%;
   flex-direction: column;
-  align-items: flex-start;
-  overflow: scroll;
+  justify-content: space-between;
   width: 25%;
 }
 

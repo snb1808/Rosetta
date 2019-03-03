@@ -1,7 +1,7 @@
 class API {
 
     static init () {
-        this.baseURL = "http://10.218.5.216:3001/api/v1"
+        this.baseURL = "http://192.168.1.152:3001/api/v1"
         this.usersURL = this.baseURL + '/users'
         this.languagesURL = this.baseURL + '/languages'
         this.chatsURL = this.baseURL + '/chats'
@@ -10,6 +10,7 @@ class API {
         this.loginURL = this.baseURL + '/login'
         this.profileURL = this.baseURL + '/profile'
         this.contactURL = this.baseURL + '/contact_list'
+        this.translationsURL = this.baseURL + '/translations'
     }
 
     static login (user) {
@@ -32,6 +33,10 @@ class API {
         return this.get(this.usersURL + `/${id}`)
     }
 
+    static getUsers () {
+        return this.get(this.usersURL)
+    }
+
     static getLanguages () {
         return this.get(this.languagesURL)
     }
@@ -44,12 +49,16 @@ class API {
         return this.get(this.chatsURL + `/${id}`)
     }
 
-    static createChat (myId, targetId) {
-        return this.post(this.chatsURL, { myId: myId, targetId: targetId })
+    static createChat (idArray) {
+        return this.post(this.chatsURL, { ids: idArray })
     }
 
     static getMessages () {
         return this.get(this.messagesURL)
+    }
+
+    static getTranslations () {
+        return this.get(this.translationsURL)
     }
 
     static postMessage (message) {

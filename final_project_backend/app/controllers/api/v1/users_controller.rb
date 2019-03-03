@@ -3,7 +3,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def index
-      @users = User.all
+      @users = User.all - [current_user]
       render json: @users
   end
 
