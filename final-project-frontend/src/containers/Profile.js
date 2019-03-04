@@ -13,10 +13,10 @@ const Profile = ({ currentUser, updateCurrentUser, history, allLanguages }) => {
                     <h1>Profile</h1>
                     <h2>{currentUser.first_name} {currentUser.last_name}</h2>
                     <img className='full_profile_picture' src={currentUser.profile_picture} alt='' />
+                    <p>{currentUser.email}</p>
                 </div>
                 <div className='settings_column'>
-                    <h2>Settings</h2>
-                    <i className="fas fa-cog" />
+                    <h2>Settings <i className="fas fa-cog" /></h2>
                     <Settings currentUser={currentUser} updateCurrentUser={updateCurrentUser} allLanguages={allLanguages} history={history} />
                 </div>
             </div>

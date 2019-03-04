@@ -3,7 +3,7 @@ class Api::V1::ChatsController < Api::V1::ApplicationController
     skip_before_action :authorized, only: [:index]
 
     def index 
-        @chats = Chat.select { |c| c.users.include?(current_user) }
+        @chats = Chat.includes(:users, :messages).select { |c| c.users.include?(current_user) }
         render json: @chats
     end
 

@@ -25,22 +25,11 @@ class ChatApp extends Component {
         this.renderMessages()
         await API.getChats().then(data => this.setState({ allChats: data }))
         await API.getLanguages().then(data => this.setState({ userFlag: data.filter(lang => lang.id === this.props.currentUser.language_id)[0].flag}))
-        // this.scrollToBottom()
     }
 
     renderMessages = () => {
         API.getMessages().then(data => this.setState({ messages: data }))
     }
-
-    // scrollToBottom = () => {
-    //     this.messagesEnd.current.scrollIntoView({ behavior: "smooth" });
-    //   }
-      
-    //   componentDidUpdate() {
-    //     this.scrollToBottom()
-    //   }
-
-    //   messagesEnd = React.createRef()
 
     handleSubmit = event => {
         event.preventDefault()
@@ -57,17 +46,23 @@ class ChatApp extends Component {
         this.setState({ 
             currentChat: chat,
             showRecipientProfile: false,
-            recipient: []
+            recipient: [],
+            isGroupChat: false
          })
         API.getChats().then(data => this.setState({ allChats: data }))
         chat.recipient.map(id => {
         API.getUser(id).then(user => {
             this.setState({ recipient: [...this.state.recipient, user] })
-            user.length === 1
+            chat.recipient.length === 1
             ?
-            API.getLanguages().then(data => this.setState({ recipientFlag: data.filter(lang => lang.id === user.language_id)[0].flag}))
+            API.getLanguages().then(data => this.setState({ 
+                recipientFlag: data.filter(lang => lang.id === user.language_id)[0].flag,
+            }))
             :
-            this.setState({ isGroupChat: true })
+            this.setState({ 
+                isGroupChat: true,
+                recipientFlag: ''
+             })
         })
         })
     }

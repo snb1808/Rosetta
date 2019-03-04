@@ -5,7 +5,8 @@
 
 body {
   text-align: center;
-  background-image: url(https://www.xmple.com/wallpaper/blue-pink-gradient-linear-1920x1080-c2-ff69b4-87ceeb-a-15-f-14.svg);
+  /* background-image: url(https://www.xmple.com/wallpaper/blue-pink-gradient-linear-1920x1080-c2-ff69b4-87ceeb-a-15-f-14.svg);*/
+  background-image: url(https://wallpaperaccess.com/full/729437.jpg);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -148,6 +149,7 @@ button {
   font-family: 'Baloo', cursive;
   font-size: 20px;
   border-radius: 15px;
+  outline: none;
 }
 
 button:hover {
@@ -169,6 +171,8 @@ button:hover {
 
 .fa-arrow-left {
   cursor: pointer;
+  margin-left: 2vw;
+  margin-top: 3vh;
 }
 
 .logout {
@@ -198,15 +202,20 @@ button:hover {
 
 .chat_header {
   font-size: 30px;
-  justify-content: left;
-  align-content: left;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* align-content: left; */
+  /* position: relative; */
   top: 0;
+  background-color: #ecd4ff;
+  border-radius: 2px;
+  border: 1px grey;
 }
 
 .message_container {
   overflow: scroll;
-  height: 34.5vh;
+  height: 41.6vh;
 }
 
 .chat_bar_container {
@@ -266,7 +275,6 @@ div.chat_bar.selected {
 .chat_bar_photo {
   height: 100%;
   position: absolute;
-  /* width: 30px; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -295,6 +303,15 @@ div.chat_bar.selected {
   background-color: #a466d8;
 }
 
+.sender_name {
+  font-size: 12px;
+  padding: 0;
+  justify-content: flex-start;
+  width: 2px;
+  overflow: visible;
+  height: 2px;
+}
+
 .receiver_message .message {
   background-color: #ecd4ff;
 }
@@ -319,11 +336,11 @@ div.chat_bar.selected {
 }
 
 .message_input {
-  position: relative;
+  position: absolute;
   padding: 0;
   bottom: 0;
   right: 0;
-  width: 100%;
+  width: 75%;
   height: 80px;
   align-content: flex-end;
   background-color: #a466d8;
@@ -359,12 +376,34 @@ div.chat_bar.selected {
 }
 
 .profile_column {
-  width: 50%;
+  width: 40%;
+  background-color: #ecd4ff;
+  border-right: 20px grey;
+  background-image: url(https://www.xmple.com/wallpaper/blue-pink-gradient-linear-1920x1080-c2-ff69b4-87ceeb-a-15-f-14.svg);
+  background-repeat: no-repeat;
+  background-size: auto 100%;
 }
 
 .settings_column {
-  width: 50%;
+  width: 60%;
   padding-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.settings_column button {
+  width: 20vw;
+}
+
+.edit_content {
+  margin-top: 10%;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h1 {

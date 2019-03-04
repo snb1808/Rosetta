@@ -3,27 +3,40 @@ import API from '../adapters/API';
 
 class Messages extends Component {
 
+    messagesEnd = null
+
+    setMessagesEnd = element => this.messagesEnd = element
+
     state = {
         names: '',
         allTranslations: [],
         allUsers: []
     }
 
-    async componentDidMount() {
-        this.interval = setInterval(async () => {
+    async componentDidMount() { 
+        this.interval = setInterval(() => {
             this.props.renderMessages()
         }, 1000)
-        // this.props.scrollToBottom()
+        this.scrollToBottom()
        await API.getTranslations().then(allTranslations => this.setState({allTranslations}))
-       await API.getUsers().then(allUsers=> this.setState({allUsers}))
+       await API.getUsers().then(allUsers => this.setState({allUsers}))
+    }
+    
+    scrollToBottom = () => { 
+        if (this.messagesEnd) this.messagesEnd.scrollIntoView({ behavior: 'smooth' }) 
     }
 
     componentWillUnmount() {
         clearInterval(this.interval)
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.messages.length !== prevProps.messages.length || this.props.currentChat.id !== prevProps.currentChat.id) {
+        this.scrollToBottom()
+        }
+    }
+
     getUser(id) {
-        console.log(this.state.allUsers)
         return this.state.allUsers.find(user => user.id === id)
     }
 
@@ -39,9 +52,12 @@ class Messages extends Component {
     render() {
         return (
             <div>
+            {this.state.allUsers.length > 0 ? 
+                <div>
                 <div className='chat_header'> 
                     <div className='profile_pic_container'>
-                        <img className='profile_picture' onClick={this.props.toggleRecipientProfile} src={this.props.recipient.profile_picture} alt='' />
+                    {console.log(this.props.recipient)}
+                        <img className='profile_picture' onClick={this.props.toggleRecipientProfile} src={this.props.recipient[0] ? this.props.recipient[0]['profile_picture'] : null} alt='' />
                     </div>
                     {this.getNames()} {this.props.flag} 
                 </div>
@@ -57,11 +73,14 @@ class Messages extends Component {
                         </li>
                         :
                         <li className='receiver_message' key={message.id}>
-                        {test && <p className={"message"}> {this.props.isGroupChat && this.getUser(message.user_id).first_name} {test.content} </p>}
+                        {test ? <p className={"message"}> <p className='sender_name'>{this.props.isGroupChat ? this.getUser(message.user_id).first_name : null }</p> {test.content} </p> : null}
                         </li>
                         )})}
+                        <div ref={this.setMessagesEnd}> </div>
                     </ul>
                 </div>
+                </div>
+            : null }
             </div>
         )
     }
