@@ -7,6 +7,12 @@ class Api::V1::MessagesController < Api::V1::ApplicationController
         render json: @messages
     end
 
+    def show
+        @chat = Chat.find(params[:chat_id])
+        @message = @chat.last_message
+        render json: @message
+    end
+
     def create
         @chat = Chat.find(params[:chat_id])
         @message = Message.new(original_content: params[:original_content], user_id: current_user.id, chat_id: params[:chat_id])

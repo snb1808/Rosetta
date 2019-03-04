@@ -11,4 +11,8 @@ class Chat < ApplicationRecord
         @users = users.reject { |u| u.id == user_id }
         return @users
     end 
+
+    def last_message()
+        return self.messages.last
+    end
 end

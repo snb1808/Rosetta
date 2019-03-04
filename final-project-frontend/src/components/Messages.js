@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../adapters/API';
+import { createRequireFromPath } from 'module';
 
 class Messages extends Component {
 
@@ -56,7 +57,6 @@ class Messages extends Component {
                 <div>
                 <div className='chat_header'> 
                     <div className='profile_pic_container'>
-                    {console.log(this.props.recipient)}
                         <img className='profile_picture' onClick={this.props.toggleRecipientProfile} src={this.props.recipient[0] ? this.props.recipient[0]['profile_picture'] : null} alt='' />
                     </div>
                     {this.getNames()} {this.props.flag} 

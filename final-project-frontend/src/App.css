@@ -290,6 +290,7 @@ div.chat_bar.selected {
   border-radius: 10px;
   padding: 3px 6px;
   box-shadow: 3px 3px 2px grey;
+  height: auto;
 }
 
 .sender_message {

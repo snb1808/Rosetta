@@ -107,7 +107,7 @@ class ChatApp extends Component {
                 <div className='chat_app'>
                     <div className='all_chats_container left_column'>
                         <button className='new_chat_btn' onClick={this.setNewChat}>Start New Chat</button>
-                        <ChatDisplay chats={this.state.allChats} setChat={this.setChat} />
+                        <ChatDisplay chats={this.state.allChats} setChat={this.setChat} currentUser={this.props.currentUser} />
                     </div>
                         <Chat isGroupChat={this.state.isGroupChat} toggleProfile={this.toggleProfile} showProfile={this.state.showRecipientProfile} currentChat={this.state.currentChat} handleSubmit={this.handleSubmit} recipientFlag={this.state.recipientFlag} renderMessages={this.renderMessages} messages={this.state.messages} currentUser={this.props.currentUser} recipient={this.state.recipient}/>
                     </div>

@@ -4,7 +4,8 @@ import API from "../adapters/API";
 class ChatBar extends Component {
 
     state = {
-        recipient: []
+        recipient: [],
+        lastMessage: {}
     }
 
     componentDidMount() {
@@ -12,6 +13,7 @@ class ChatBar extends Component {
             await API.getUser(id)
             .then(data => this.setState({ recipient: [...this.state.recipient, data] }))
         })
+        API.getLastMessage({chat_id: this.props.chat.id}).then(lastMessage => this.setState({lastMessage}))
     }
 
     getNames() {

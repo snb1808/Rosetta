@@ -11,6 +11,7 @@ class API {
         this.profileURL = this.baseURL + '/profile'
         this.contactURL = this.baseURL + '/contact_list'
         this.translationsURL = this.baseURL + '/translations'
+        this.lastMessageURL = this.baseURL + '/last_message'
     }
 
     static login (user) {
@@ -55,6 +56,10 @@ class API {
 
     static getMessages () {
         return this.get(this.messagesURL)
+    }
+
+    static getLastMessage (chat_id) {
+        return this.post(this.lastMessageURL, chat_id)
     }
 
     static getTranslations () {

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :userchats
       resources :chats
       resources :messages, only: [:index, :create]
+      post '/last_message', to: 'messages#show'
       resources :languages
       resources :translations
     end
