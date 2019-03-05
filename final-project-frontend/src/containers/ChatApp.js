@@ -33,13 +33,19 @@ class ChatApp extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        const message = {
-            original_content: event.target.content.value,
-            chat_id: this.state.currentChat.id
+        if (event.target.content.value.replace(/\s+/g, '') !== '') {
+            const message = {
+                original_content: event.target.content.value,
+                chat_id: this.state.currentChat.id
+            }
+            API.postMessage(message)
+            API.patchRead({
+                chat_id: this.state.currentChat.id,
+                read: false
+            })
+            event.target.content.value = ''
+            this.setState({ messages: [...this.state.messages, message] })
         }
-        API.postMessage(message)
-        event.target.content.value = ''
-        this.setState({ messages: [...this.state.messages, message] })
     }
 
     setChat = (chat) => {
@@ -64,6 +70,10 @@ class ChatApp extends Component {
                 recipientFlag: ''
              })
         })
+        })
+        API.patchRead({
+            chat_id: chat.id,
+            read: true
         })
     }
 
@@ -107,7 +117,7 @@ class ChatApp extends Component {
                 <div className='chat_app'>
                     <div className='all_chats_container left_column'>
                         <button className='new_chat_btn' onClick={this.setNewChat}>Start New Chat</button>
-                        <ChatDisplay chats={this.state.allChats} setChat={this.setChat} currentUser={this.props.currentUser} />
+                        <ChatDisplay chats={this.state.allChats} setChat={this.setChat} messages={this.state.messages} currentUser={this.props.currentUser} />
                     </div>
                         <Chat isGroupChat={this.state.isGroupChat} toggleProfile={this.toggleProfile} showProfile={this.state.showRecipientProfile} currentChat={this.state.currentChat} handleSubmit={this.handleSubmit} recipientFlag={this.state.recipientFlag} renderMessages={this.renderMessages} messages={this.state.messages} currentUser={this.props.currentUser} recipient={this.state.recipient}/>
                     </div>

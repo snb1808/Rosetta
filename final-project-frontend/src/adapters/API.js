@@ -1,7 +1,7 @@
 class API {
 
     static init () {
-        this.baseURL = "http://10.218.7.79:3001/api/v1"
+        this.baseURL = "http://10.218.1.62:3001/api/v1"
         this.usersURL = this.baseURL + '/users'
         this.languagesURL = this.baseURL + '/languages'
         this.chatsURL = this.baseURL + '/chats'
@@ -66,12 +66,20 @@ class API {
         return this.get(this.translationsURL)
     }
 
+    static getUserChat (data) {
+        return this.post(this.userChatsURL, data)
+    }
+
     static postMessage (message) {
         return this.post(this.messagesURL, message)
     }
 
     static patchUser (id, data) {
         return this.patch(this.usersURL + `/${id}`, data)
+    }
+
+    static patchRead (data) {
+        return this.patch(this.userChatsURL, data)
     }
 
     static async get (url) {

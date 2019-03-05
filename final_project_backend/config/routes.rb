@@ -6,9 +6,11 @@ Rails.application.routes.draw do
       get '/profile', to: 'users#profile'
       get '/users', to: 'users#index'
       get '/contact_list', to: 'users#contact_list'
-      resources :userchats
+      resources :userchats, except: [:update, :create]
+      patch '/userchats', to: 'userchats#update'
+      post '/userchats', to: 'userchats#show'
       resources :chats
-      resources :messages, only: [:index, :create]
+      resources :messages, only: [:index, :create, :show]
       post '/last_message', to: 'messages#show'
       resources :languages
       resources :translations

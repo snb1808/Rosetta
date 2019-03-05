@@ -240,6 +240,20 @@ button:hover {
   position: relative;
 }
 
+@keyframes flashing {
+  0% {border-color: rgb(255,0,0);}
+  25% {border-color: rgb(0,255, 0);}
+  50% {border-color: rgb(255,0, 255);}
+  100% {border-color: rgb(255,0, 0);}
+}
+
+div.chat_bar.unread {
+  border: none;
+  border-left: 5px solid transparent;
+  /* background-color: red; */
+  animation: flashing 3s infinite;
+}
+
 .chat_bar:nth-child(odd) {
   background-color: #ecd4ff;
 }
@@ -291,6 +305,9 @@ div.chat_bar.selected {
   padding: 3px 6px;
   box-shadow: 3px 3px 2px grey;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .sender_message {
@@ -307,10 +324,8 @@ div.chat_bar.selected {
 .sender_name {
   font-size: 12px;
   padding: 0;
-  justify-content: flex-start;
-  width: 2px;
   overflow: visible;
-  height: 2px;
+  margin: 2px;
 }
 
 .receiver_message .message {

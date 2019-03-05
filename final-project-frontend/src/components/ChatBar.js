@@ -5,7 +5,8 @@ class ChatBar extends Component {
 
     state = {
         recipient: [],
-        lastMessage: {}
+        lastMessage: {},
+        read: true
     }
 
     componentDidMount() {
@@ -14,6 +15,13 @@ class ChatBar extends Component {
             .then(data => this.setState({ recipient: [...this.state.recipient, data] }))
         })
         API.getLastMessage({chat_id: this.props.chat.id}).then(lastMessage => this.setState({lastMessage}))
+        API.getUserChat({ chat_id: this.props.chat.id }).then(userChat => this.setState({ read: userChat[0].read }))
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.messages.length !== prevProps.messages.length) {
+            API.getUserChat({ chat_id: this.props.chat.id }).then(userChat => this.setState({ read: userChat[0].read }))
+        }
     }
 
     getNames() {
@@ -21,10 +29,15 @@ class ChatBar extends Component {
         return namesArray.join(', ')
     }
 
+    setRead = () => { this.setState({ read: true }) }
+
     render() {
         if(this.state.recipient.length === 1) {
             return (
-                <div className='chat_bar' onClick={() => this.props.setChat(this.props.chat)}>
+                <div className={ `${this.state.read ? 'chat_bar' : 'unread chat_bar'}` } onClick={() => {
+                                                                                                        this.props.setChat(this.props.chat) 
+                                                                                                        this.setRead()
+                                                                                                        }}>
                 <div className='chat_bar_photo_holder'>
                     <img className='chat_bar_photo' src={this.state.recipient[0].profile_picture} alt=''/>
                 </div>
@@ -34,7 +47,10 @@ class ChatBar extends Component {
                 </div>
             )} else {
                 return (
-                <div className='chat_bar' onClick={() => this.props.setChat(this.props.chat)}>
+                <div className={ `${this.state.read ? 'chat_bar' : 'unread chat_bar'}` } onClick={() => {
+                    this.props.setChat(this.props.chat)
+                    this.setRead()
+                }}>
                     {this.getNames()}
                 </div>
                 )}
