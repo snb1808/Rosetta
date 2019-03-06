@@ -13,17 +13,22 @@ class ChatApp extends Component {
         recipient: [],
         messages: [],
         allChats: [],
+        filteredChats: [],
         newChat: false,
         userFlag: '',
         recipientFlag: '',
         showRecipientProfile: false,
         startGroupChat: false,
-        isGroupChat: false
+        isGroupChat: false,
+        search: ''
     }
 
     async componentDidMount() {
         this.renderMessages()
-        await API.getChats().then(data => this.setState({ allChats: data }))
+        await API.getChats().then(data => this.setState({ 
+            allChats: data,
+            filteredChats: data
+     }))
         await API.getLanguages().then(data => this.setState({ userFlag: data.filter(lang => lang.id === this.props.currentUser.language_id)[0].flag}))
     }
 
@@ -48,6 +53,28 @@ class ChatApp extends Component {
         }
     }
 
+    getFullName(user) {
+        return `${user.first_name} ${user.last_name}`
+    }
+
+    handleSearch = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+        const filtered = this.state.allChats.map(chat => {
+            let chatUsers = []
+            chat.recipient.map(async id => await API.getUser(id).then(user => chatUsers.push(user)))
+            console.log(chatUsers)
+
+            chatUsers.forEach(user => {
+                if (this.getFullName(user).includes(this.state.search)) {
+                    return chat
+                }
+            })
+        })
+        this.setState({filteredChats: filtered})
+    }
+
     setChat = (chat) => {
         this.setState({ 
             currentChat: chat,
@@ -55,7 +82,10 @@ class ChatApp extends Component {
             recipient: [],
             isGroupChat: false
          })
-        API.getChats().then(data => this.setState({ allChats: data }))
+        API.getChats().then(data => this.setState({ 
+            allChats: data,
+            filteredChats: data
+        }))
         chat.recipient.map(id => {
         API.getUser(id).then(user => {
             this.setState({ recipient: [...this.state.recipient, user] })
@@ -117,7 +147,10 @@ class ChatApp extends Component {
                 <div className='chat_app'>
                     <div className='all_chats_container left_column'>
                         <button className='new_chat_btn' onClick={this.setNewChat}>Start New Chat</button>
-                        <ChatDisplay chats={this.state.allChats} setChat={this.setChat} messages={this.state.messages} currentUser={this.props.currentUser} />
+                        <form className='search_bar'>
+                            <input name='search' value={this.state.search} placeholder='Search' onChange={this.handleSearch} />
+                        </form>
+                        <ChatDisplay chats={this.state.filteredChats} setChat={this.setChat} messages={this.state.messages} currentUser={this.props.currentUser} />
                     </div>
                         <Chat isGroupChat={this.state.isGroupChat} toggleProfile={this.toggleProfile} showProfile={this.state.showRecipientProfile} currentChat={this.state.currentChat} handleSubmit={this.handleSubmit} recipientFlag={this.state.recipientFlag} renderMessages={this.renderMessages} messages={this.state.messages} currentUser={this.props.currentUser} recipient={this.state.recipient}/>
                     </div>

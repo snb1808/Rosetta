@@ -39,9 +39,13 @@ class App extends Component {
   }
 
   login = data => {
+    if (data.jwt) {
     localStorage.setItem('token', data.jwt)
     this.setState({ currentUser: data.user })
     this.props.history.push('/home')
+    } else {
+      alert('Incorrect email or password!')
+    }
   }
 
   handleSignUp = event => {
@@ -76,6 +80,7 @@ class App extends Component {
 
   updateCurrentUser = () => {
     API.getCurrentUser().then(data => {
+
       this.setState({ currentUser: data.user })
     })
   }
