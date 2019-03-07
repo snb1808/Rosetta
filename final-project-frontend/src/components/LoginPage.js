@@ -5,10 +5,15 @@ const LoginPage = ({ handleLogin }) => {
 
     return (
         <div className='login_page form_holder'>
-            <form className='login_form' onSubmit={handleLogin}>
+            <form required className='login_form' onSubmit={handleLogin}>
             <div>
-                <input type="text" name='email' placeholder='Email'/>
-                <input type="password" name='password' placeholder='Password'/>
+                < input required type = "email"
+                name = 'email'
+                pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                placeholder = 'Email' / >
+                < input required type = "password"
+                name = 'password'
+                placeholder = 'Password' / >
                 <input className='button' type='submit' value='Log In'/>
             </div>
             </form>

@@ -16,11 +16,12 @@ class Messages extends Component {
     async componentDidMount() { 
         this.interval = setInterval(() => {
             this.props.renderMessages()
+            this.props.getChats()
         }, 1000)
         this.scrollToBottom()
        await API.getTranslations().then(allTranslations => this.setState({allTranslations}))
        await API.getUsers().then(allUsers => this.setState({allUsers}))
-    }
+    } 
     
     scrollToBottom = () => { 
         if (this.messagesEnd) this.messagesEnd.scrollIntoView({ behavior: 'smooth' }) 
@@ -36,6 +37,7 @@ class Messages extends Component {
 
     componentDidUpdate() {
         this.scrollToBottom()
+        API.getTranslations().then(allTranslations => this.setState({ allTranslations }))
     }
 
     getUser(id) {
@@ -64,9 +66,8 @@ class Messages extends Component {
                     </div>
                     <div className='message_container'>
                         <ul className='message_list'>
-                            {this.props.messages.filter(message => message.chat_id === this.props.currentChat.id).map(message => {
+                            {this.props.messages.map(message => {
                             const test = this.getTranslation(message.id)
-
                             return (message.user_id === this.props.currentUser.id 
                             ?
                             <li className='sender_message' key={message.id}>

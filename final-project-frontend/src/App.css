@@ -65,7 +65,7 @@ a {
 .chat_app_container {
   display: flex;
   justify-content: space-between;
-  height: 78.5%;
+  height: 80.9%;
 }
 
 .header {
@@ -90,13 +90,13 @@ a {
 }
 
 .profile_div {
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
   font-size: 20px;
   font-style: inherit;
   text-decoration: none;
-  /* width: 30%; */
-  float: left;
+  margin-left: 20%;
 }
 
 .loginForm {
@@ -118,7 +118,6 @@ a {
   border-radius: 50%;
   display: flex;
   overflow: hidden;
-  margin-left: 5vw;
 }
 
 .profile_picture {
@@ -210,16 +209,17 @@ button:hover {
   background-color: #ecd4ff;
   border-radius: 2px;
   border: 1px grey;
+  font-family: 'Baloo', cursive;
 }
 
 .message_container {
   overflow: scroll;
-  height: 41.6vh;
+  height: 45.7vh;
 }
 
 .chat_bar_container {
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100% - 10px);
   overflow: scroll;
 }
 
@@ -367,8 +367,11 @@ div.chat_bar.selected {
   position: relative;
   float: right;
   bottom: 0;
-  right: 6vw;
   width: 100%;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  margin: 2px;
 }
 
 .message_input button {
@@ -443,15 +446,25 @@ h2 {
   justify-content: center;
   display: flex;
   width: 50%;
+  height: 100%;
 }
 
 .recipient_info_holder {
   display: flex;
+  flex-direction: column;
   width: 50%;
+  font-family: 'Baloo', cursive;
+  padding: 10%;
 }
 
 .recipient_image_holder img {
-  max-width: 100%;
+  height: 50%;
+  margin-top: 18%;
+}
+
+.recipient_profile .fa-arrow-left {
+  margin-top: 2%;
+  margin-left: 2%;
 }
 
 .search_bar {

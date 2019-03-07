@@ -12,7 +12,10 @@ class ChatBar extends Component {
     componentDidMount() {
         this.props.chat.recipient.map(async id => { 
             await API.getUser(id)
-            .then(data => this.setState({ recipient: [...this.state.recipient, data] }))
+            .then(data => {
+                this.props.addaRecipient(data)
+                this.setState({ recipient: [...this.state.recipient, data] })
+            })
         })
         API.getLastMessage({chat_id: this.props.chat.id}).then(lastMessage => this.setState({lastMessage}))
         API.getUserChat({ chat_id: this.props.chat.id }).then(userChat => this.setState({ read: userChat[0].read }))
@@ -32,6 +35,7 @@ class ChatBar extends Component {
     setRead = () => { this.setState({ read: true }) }
 
     render() {
+        // console.log(this.state.recipient)
         if(this.state.recipient.length === 1) {
             return (
                 <div className={ `${this.state.read ? 'chat_bar' : 'unread chat_bar'}` } onClick={() => {

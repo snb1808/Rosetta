@@ -7,7 +7,7 @@ const EditPersonal = ({ handleEditPersonal, currentUser }) => {
             <input type="text" name='first_name' placeholder={currentUser.first_name} />
             <input type='text' name='last_name' placeholder={currentUser.last_name} />
             <input type='email' name='email' placeholder={currentUser.email} />
-            <input type="submit" value='Edit Details'/>
+            <input className='button' type="submit" value='Edit Details'/>
         </form>
     )
 }

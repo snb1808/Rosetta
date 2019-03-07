@@ -3,7 +3,9 @@ require 'google/cloud/translate'
 class Api::V1::MessagesController < Api::V1::ApplicationController
 
     def index
-        @messages = Message.select { |m| m.users.include?(current_user) }
+        me = current_user
+        @messages = Message.all.includes(:users)
+        @messages = @messages.select { |m| m.users.include?(me) }
         render json: @messages
     end
 
