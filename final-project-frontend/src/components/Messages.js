@@ -17,7 +17,10 @@ class Messages extends Component {
         this.interval = setInterval(() => {
             this.props.renderMessages()
             this.props.getChats()
-        }, 1000)
+            API.getTranslations().then(allTranslations => this.setState({
+                allTranslations
+            }))
+        }, 500)
         this.scrollToBottom()
        await API.getTranslations().then(allTranslations => this.setState({allTranslations}))
        await API.getUsers().then(allUsers => this.setState({allUsers}))
@@ -55,9 +58,9 @@ class Messages extends Component {
 
     render() {
         return (
-            <div>
+            <div className='outer_messages'>
             {this.state.allUsers.length > 0 ? 
-                <div>
+                <div className='outer_messages_2'>
                     <div className='chat_header'> 
                         <div className='profile_pic_container'>
                             <img className='profile_picture' onClick={this.props.toggleRecipientProfile} src={this.props.recipient[0] ? this.props.recipient[0]['profile_picture'] : null} alt='' />

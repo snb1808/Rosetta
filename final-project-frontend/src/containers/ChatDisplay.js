@@ -5,7 +5,15 @@ const ChatDisplay = ({ currentUser, chats, setChat, messages, addaRecipient }) =
 
     return (
         <div className='chat_bar_container'>
-        {[...new Set(chats)].map(chat => <ChatBar addaRecipient={addaRecipient} setChat={setChat} messages={messages} key={chat.id} chat={chat} currentUser={currentUser}/> )}            
+        {[...new Set(chats)].map(chat => {
+        return <ChatBar 
+        addaRecipient={addaRecipient} 
+        setChat={setChat} 
+        messages={messages} 
+        key={chat.id} 
+        chat={chat} 
+        currentUser={currentUser}/> 
+        })}            
         </div>
     )
 

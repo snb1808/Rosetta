@@ -8,7 +8,9 @@ class Api::V1::UserchatsController < Api::V1::ApplicationController
     end
 
     def show
-        @userchat = Userchat.select { |uc| uc.chat_id == params[:chat_id] && uc.user_id == current_user.id }
+        @userchats = Userchat.all
+        me = current_user
+        @userchat = @userchats.select { |uc| uc.chat_id == params[:chat_id] && uc.user_id == me.id }
         render json: @userchat
     end
     

@@ -7,6 +7,7 @@ body {
   text-align: center;
   background-image: url(https://www.xmple.com/wallpaper/blue-pink-gradient-linear-1920x1080-c2-ff69b4-87ceeb-a-15-f-14.svg);
   font-family: Arial, Helvetica, sans-serif;
+  background-size: cover;
 }
 
 a {
@@ -60,12 +61,14 @@ a {
   opacity: 0.9;
   border: 1px #333;
   box-shadow: 0 6px 12px 2px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
 }
 
 .chat_app_container {
   display: flex;
   justify-content: space-between;
-  height: 80.9%;
+  flex: 1 1 auto;
 }
 
 .header {
@@ -99,6 +102,7 @@ a {
   margin-left: 20%;
 }
 
+
 .loginForm {
   max-width: 30px;
   align-content: center;
@@ -131,7 +135,6 @@ a {
 
 .user_name {
   float: left;
-  margin-top: 6.5vh;
 }
 
 .flag {
@@ -191,13 +194,24 @@ button:hover {
 
 .new_chat_btn {
   display: block;
+  border-radius: 0;
 }
 
 .chat_container {
   width: 75%;
   background-color: #fff;
   border-radius: 10px;
-  height: 93%;
+  height: calc(100% - 80px);
+}
+
+.outer_messages {
+  height: 100%;
+}
+
+.outer_messages_2 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat_header {
@@ -214,7 +228,7 @@ button:hover {
 
 .message_container {
   overflow: scroll;
-  height: 45.7vh;
+  height: 100%;
 }
 
 .chat_bar_container {
@@ -295,6 +309,7 @@ div.chat_bar.selected {
 
 .message_list {
   padding: 0;
+  flex: 1 1 auto;
 }
 
 .message {
@@ -384,10 +399,7 @@ div.chat_bar.selected {
 
 .full_profile_picture {
   height: 20vh;
-  border-radius: 10px;
-}
-
-.chat_container.hidden {
+  border-radius: 8px;
 }
 
 .fa-arrow-left {
@@ -397,6 +409,7 @@ div.chat_bar.selected {
 
 .profile {
   display:flex;
+  font-family: 'Baloo', cursive;
 }
 
 .profile_column {
@@ -406,6 +419,10 @@ div.chat_bar.selected {
   background-image: url(https://www.xmple.com/wallpaper/blue-pink-gradient-linear-1920x1080-c2-ff69b4-87ceeb-a-15-f-14.svg);
   background-repeat: no-repeat;
   background-size: auto 100%;
+}
+
+.profile_column h1 {
+  margin-right: 8%;
 }
 
 .settings_column {
@@ -440,6 +457,13 @@ h2 {
 
 .recipient_profile {
   display: flex;
+  font-family: 'baloo', cursive;
+}
+
+.group.recipient_profile{
+  flex-direction: column;
+  display: flex;
+  overflow: scroll;
 }
 
 .recipient_image_holder {
@@ -455,11 +479,13 @@ h2 {
   width: 50%;
   font-family: 'Baloo', cursive;
   padding: 10%;
+  /* left: 0; */
 }
 
-.recipient_image_holder img {
-  height: 50%;
+
+.recipient_image img {
   margin-top: 18%;
+  max-width: 25em;
 }
 
 .recipient_profile .fa-arrow-left {
@@ -476,4 +502,5 @@ h2 {
   width: 100%;
   height: 100%;
   margin: 0;
+  font-size: 1em;
 }

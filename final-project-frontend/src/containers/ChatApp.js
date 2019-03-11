@@ -41,7 +41,6 @@ class ChatApp extends Component {
     }
 
     addaRecipient = (recipient) => {
-
         if (!this.state.allRecipients.map(i => i.id).includes(recipient.id)) {
         this.setState({allRecipients: [...this.state.allRecipients, recipient]})
         }
@@ -64,9 +63,7 @@ class ChatApp extends Component {
                 chat_id: this.state.currentChat.id
             }
             API.postMessage(message)
-                .then(m => this.setState({
-                    messages: [...this.state.messages, m]
-                }))
+            .then(this.renderMessages())
             API.patchRead({
                 chat_id: this.state.currentChat.id,
                 read: false
@@ -173,7 +170,13 @@ class ChatApp extends Component {
                         <form className='search_bar'>
                             <input name='search' placeholder='Search' onChange={this.handleSearch} />
                         </form>
-                        <ChatDisplay addaRecipient={this.addaRecipient} chats={this.state.filteredChats} setChat={this.setChat} messages={this.state.messages} currentUser={this.props.currentUser} />
+                        <ChatDisplay 
+                        addaRecipient={this.addaRecipient} 
+                        chats={this.state.filteredChats} 
+                        setChat={this.setChat} 
+                        messages={this.state.messages} 
+                        currentUser={this.props.currentUser} 
+                        />
                     </div>
                         <Chat 
                         getChats={this.getChats} 
@@ -187,7 +190,8 @@ class ChatApp extends Component {
                         renderMessages={this.renderMessages} 
                         messages={this.state.chatMessages} 
                         currentUser={this.props.currentUser} 
-                        recipient={this.state.recipient}/>
+                        recipient={this.state.recipient}
+                        />
                     </div>
                 }
                 </div>   

@@ -21,11 +21,17 @@ class ChatBar extends Component {
         API.getUserChat({ chat_id: this.props.chat.id }).then(userChat => this.setState({ read: userChat[0].read }))
     }
 
+    // shouldComponentUpdate(prevProps) {
+    //     return this.props.messages.length !== prevProps.messages.length
+    // }
+
     componentDidUpdate(prevProps) {
-        if(this.props.messages.length !== prevProps.messages.length) {
+        console.log("UPDATED:", this.state.read)
+        if (this.props.messages.length !== prevProps.messages.length) {
             API.getUserChat({ chat_id: this.props.chat.id }).then(userChat => this.setState({ read: userChat[0].read }))
         }
     }
+
 
     getNames() {
         const namesArray = this.state.recipient.map(user => user.first_name)

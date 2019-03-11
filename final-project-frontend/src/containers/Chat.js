@@ -37,7 +37,9 @@ class Chat extends Component {
                 <div className={`${this.props.currentChat ? 'chat_container' : 'chat_container hidden'} recipient_profile`}>
                     <div className='recipient_image_holder'>
                         <i className="fas fa-arrow-left" onClick={this.props.toggleProfile}/>
-                        <img src={this.props.recipient[0].profile_picture} alt='' />
+                        <div className='recipient_image'>
+                            <img src={this.props.recipient[0].profile_picture} alt='' />
+                        </div>
                     </div>
                     <div className='recipient_info_holder'>
                         <h2>{this.props.recipient[0].first_name} {this.props.recipient[0].last_name}</h2>
@@ -47,12 +49,12 @@ class Chat extends Component {
                 </div>
         )} else {
             return (
-                <div className={`${this.props.currentChat ? 'chat_container' : 'chat_container hidden'} recipient_profile`}>
+                <div className={`${this.props.currentChat ? 'chat_container' : 'chat_container hidden'} group recipient_profile`}>
                     <i className="fas fa-arrow-left" onClick={this.props.toggleProfile}/>
                     <h2>Chat Participants:</h2>
                     {this.props.recipient.map(user => {
                         return <div key={user.id}>
-                            <p>{user.first_name} {user.last_name}</p>
+                            <h3>{user.first_name} {user.last_name}</h3>
                             <p>{user.email}</p>
                             <p>Speaks {this.getLanguage(user).name}</p>
                         </div>

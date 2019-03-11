@@ -4,8 +4,13 @@ class Api::V1::ChatsController < Api::V1::ApplicationController
 
     def index 
         me = current_user
+        # byebug
         @chats = Chat.includes(:users, :messages).select { |c| c.users.include?(me) }.sort_by {|i| i.messages.last&.created_at || 1.years.ago}.reverse
-        render json: @chats
+        @new_chats = Chat.my_chats(me).sort_by {|i| i.messages.last&.created_at || 1.years.ago}.reverse
+        p "*********************************"
+        p @chats
+        p @new_chats
+        render json: @new_chats
     end
 
     def create

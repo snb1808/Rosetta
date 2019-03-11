@@ -31,7 +31,6 @@ class Settings extends Component {
         const language = { language_id: event.target.language.value }
         API.patchUser(this.props.currentUser.id, language)
         this.props.updateCurrentUser()
-        this.props.history.push('/home')
         this.setState({ editLanguage: false })
     }
 
@@ -50,12 +49,10 @@ class Settings extends Component {
         }
         API.patchUser(this.props.currentUser.id, details)
         this.props.updateCurrentUser()
-        this.props.history.push('/home')
         this.setState({ editPersonal: false })
     }
 
     togglePictureForm = () => this.state.editForm === 'picture' ? this.setState({ editForm: ''}) : this.setState({ editForm: 'picture' }) 
-        // editPicture: !this.state.editPicture, editLanguage: false, editPersonal: false})
 
     toggleLanguageSelect = () => this.state.editForm === 'language' ? this.setState({ editForm: ''}) : this.setState({ editForm: 'language' }) 
 

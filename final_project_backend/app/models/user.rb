@@ -12,6 +12,7 @@ class User < ApplicationRecord
     has_many :messages
     has_many :translations
 
+
     def contact_list
         all_chats = self.chats.select {|chat| chat.users.length == 1}
         User.all - [self] - all_chats.map(&:users).flatten
